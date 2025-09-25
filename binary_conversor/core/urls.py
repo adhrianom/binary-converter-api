@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import converter
+from .views import ConverterAPIView
 
 urlpatterns = [
-    path('converter/', converter, name='converter'),
+    path('converter/', ConverterAPIView.as_view(), name='converter'),
 ]
