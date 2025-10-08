@@ -1,0 +1,9 @@
+.background {
+    width: 1600px;
+    height: 1200px;
+    background: #daf0ff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
