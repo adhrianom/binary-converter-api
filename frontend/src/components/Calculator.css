@@ -1,9 +1,130 @@
+body {
+    font-family: 'Inter', Arial, sans-serif;
+}
+
 .background {
-    width: 1600px;
-    height: 1200px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     background: #daf0ff;
 
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.buttons-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.button {
+    height: 62px;
+    border-radius: 16px;
+    border: none;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.button:active {
+    filter: brightness(0.9);
+}
+
+.button.grey {
+    background: #616161;
+    color: #A5A5A5;
+}
+
+.button.dark-grey {
+    background: #303136;
+    color: #29A8FF;
+}
+
+.button.blue {
+    background: #1991FF;
+    color: #fff;
+    grid-row: span 2;
+    height: 136px;
+    margin-top: 16px;
+    
+}
+
+
+
+.button.dark-blue {
+    background: #005DB2;
+    color: #fff;
+}
+
+.button.zero {
+    grid-column: span 2;
+    width: 100%;
+    margin-top: 16px;
+
+}
+
+.button.dot {
+    margin-top: 16px;
+}
+
+.input {
+    width: 100%;
+    min-height: 90px;
+    color: #fff;
+    font-size: 2.2rem;
+    text-align: right;
+    margin-bottom: -30px;
+    background: transparent;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.operation {
+    width: 100%;
+    color: #A5A5A5;
+    font-size: 1.1rem;
+    text-align: right;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-family: 'Inter', Arial, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.calculator-shadow{
+    position: absolute;
+    width: 300px;
+    height: 600px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: rgba(0, 107, 181, 0.63);
+    filter: blur(70px);
+    z-index: 0;
+    right: 400px;
+    top: 40px;
+}
+
+.calculator {
+    position: relative;
+    z-index: 1;
+    width: 315px;
+    min-height: 480px;
+    background: linear-gradient(180deg, #17181A 0%, #17181A 100%);
+    border-radius: 39px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 32px 16px 48px 16px;
 }
