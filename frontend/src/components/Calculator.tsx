@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './Calculator.css';
+import { convertToIEEE754, type ConverterResponse } from '../api';
 
 function Calculator() {
   const [num, setNum] = useState(0);
   const [secondNum, setSecondNum] = useState(0);
   const [oldNum, setOldNum] = useState(0);
   const [operator, setOperator] = useState();
+  const [ieee, setIeee] = useState<ConverterResponse | null>(null);
 
   function inputNum(e) {
     let input = e.target.value;
@@ -19,6 +21,7 @@ function Calculator() {
   function clear() {
     setNum(0);
     setShowOperation(false);
+    setIeee(null);
   }
 
   function deleteNum() {
@@ -56,6 +59,16 @@ function Calculator() {
     return '';
   }
 
+  const convert = async () => {
+    if (num === null) return;
+    try {
+      const data = await convertToIEEE754(num);
+      setIeee(data);
+    } catch (error) {
+      console.error('Error converting to IEEE754:', error);
+    }
+  };
+
   return (
     <>
       <div className="background">
@@ -67,7 +80,19 @@ function Calculator() {
           <h1 className="input" id="result">
             {num}
           </h1>
+          {ieee && (
+            <div className="ieee-result">
+              <p>
+                {ieee.ieee754.signal} {ieee.ieee754.exponent}{' '}
+                {ieee.ieee754.mantissa}
+              </p>
+            </div>
+          )}
           <div className="buttons-container">
+            <button className="ieee" onClick={convert}>
+              IEEE754
+            </button>
+
             <button className="button grey" onClick={clear}>
               Ac
             </button>

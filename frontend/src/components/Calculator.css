@@ -42,6 +42,8 @@ body {
     color: #A5A5A5;
 }
 
+
+
 .button.dark-grey {
     background: #303136;
     color: #29A8FF;
@@ -56,7 +58,17 @@ body {
     
 }
 
-
+.ieee-result {
+    color: #A5A5A5;
+    font-size: 0.9rem;
+    text-align: right;
+    margin-bottom: -30px;
+    background: transparent;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    font-family: 'Inter', Arial, sans-serif;
+}
 
 .button.dark-blue {
     background: #005DB2;
