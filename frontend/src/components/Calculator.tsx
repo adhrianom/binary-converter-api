@@ -3,6 +3,7 @@ import './Calculator.css';
 
 function Calculator() {
   const [num, setNum] = useState(0);
+  const [secondNum, setSecondNum] = useState(0);
   const [oldNum, setOldNum] = useState(0);
   const [operator, setOperator] = useState();
 
@@ -17,6 +18,7 @@ function Calculator() {
 
   function clear() {
     setNum(0);
+    setShowOperation(false);
   }
 
   function deleteNum() {
@@ -31,6 +33,8 @@ function Calculator() {
   }
 
   function calculate() {
+    setSecondNum(num);
+
     if (operator === '/') {
       setNum(parseFloat(oldNum) / parseFloat(num));
     } else if (operator === '*') {
@@ -40,20 +44,34 @@ function Calculator() {
     } else if (operator === '+') {
       setNum(parseFloat(oldNum) + parseFloat(num));
     }
+    setShowOperation(true);
+  }
+
+  const [showOperation, setShowOperation] = useState(false);
+
+  function historyOperation() {
+    if (operator) {
+      return `${oldNum} ${operator} ${secondNum}`;
+    }
+    return '';
   }
 
   return (
     <>
       <div className="background">
+        <div className="calculator-shadow"></div>
         <div className="calculator">
+          {showOperation && (
+            <div className="operation">{historyOperation()}</div>
+          )}
           <h1 className="input" id="result">
             {num}
           </h1>
           <div className="buttons-container">
-            <button className="grey" onClick={clear}>
+            <button className="button grey" onClick={clear}>
               Ac
             </button>
-            <button className="grey" onClick={deleteNum}>
+            <button className="button grey" onClick={deleteNum}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -67,57 +85,80 @@ function Calculator() {
                 />
               </svg>
             </button>
-            <button className="dark-blue" onClick={operatorHandler} value="/">
+            <button
+              className="button dark-blue"
+              id="divisor"
+              onClick={operatorHandler}
+              value="/"
+            >
               /
             </button>
-            <button className="dark-blue" onClick={operatorHandler} value="*">
+            <button
+              className="button dark-blue"
+              id="multiplicador"
+              onClick={operatorHandler}
+              value="*"
+            >
               *
             </button>
-            <button className="dark-grey" onClick={inputNum} value="7">
+            <button className="button dark-grey" onClick={inputNum} value="7">
               7
             </button>
-            <button className="dark-grey" onClick={inputNum} value="8">
+            <button className="button dark-grey" onClick={inputNum} value="8">
               8
             </button>
-            <button className="dark-grey" onClick={inputNum} value="9">
+            <button className="button dark-grey" onClick={inputNum} value="9">
               9
             </button>
-            <button className="dark-blue" onClick={operatorHandler} value="-">
+            <button
+              className="button dark-blue"
+              onClick={operatorHandler}
+              value="-"
+            >
               -
             </button>
-            <button className="dark-grey" onClick={inputNum} value="4">
+            <button className="button dark-grey" onClick={inputNum} value="4">
               4
             </button>
-            <button className="dark-grey" onClick={inputNum} value="5">
+            <button className="button dark-grey" onClick={inputNum} value="5">
               5
             </button>
-            <button className="dark-grey" onClick={inputNum} value="6">
+            <button className="button dark-grey" onClick={inputNum} value="6">
               6
             </button>
-            <button className="add" onClick={operatorHandler} value="+">
+            <button
+              className="button dark-blue add"
+              onClick={operatorHandler}
+              value="+"
+            >
               +
             </button>
-            <button className="dark-grey" onClick={inputNum} value="1">
+            <button className="button dark-grey" onClick={inputNum} value="1">
               1
             </button>
-            <button className="dark-grey" onClick={inputNum} value="2">
+            <button className="button dark-grey" onClick={inputNum} value="2">
               2
             </button>
-            <button className="dark-grey" onClick={inputNum} value="3">
+            <button className="button dark-grey" onClick={inputNum} value="3">
               3
             </button>
-            <button className="result" onClick={calculate}>
+            <button className="button blue" onClick={calculate}>
               =
             </button>
+
             <button
-              className="zero"
+              className="button dark-grey zero"
               onClick={inputNum}
               value="0"
               style={{ gridColumn: 'span 2' }}
             >
               0
             </button>
-            <button className="dark-grey" onClick={inputNum} value=".">
+            <button
+              className="button dark-grey dot"
+              onClick={inputNum}
+              value="."
+            >
               .
             </button>
           </div>
