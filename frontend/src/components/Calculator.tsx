@@ -6,15 +6,16 @@ function Calculator() {
   const [num, setNum] = useState(0);
   const [secondNum, setSecondNum] = useState(0);
   const [oldNum, setOldNum] = useState(0);
-  const [operator, setOperator] = useState();
+  type Operator = '/' | '*' | '-' | '+' | undefined;
+  const [operator, setOperator] = useState<Operator | undefined>();
   const [ieee, setIeee] = useState<ConverterResponse | null>(null);
 
-  function inputNum(e) {
-    let input = e.target.value;
+  function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
+    const input = e.currentTarget.value;
     if (num === 0) {
-      setNum(input);
+      setNum(Number(input));
     } else {
-      setNum(num + input);
+      setNum(Number(num) + Number(input));
     }
   }
 
@@ -25,11 +26,11 @@ function Calculator() {
   }
 
   function deleteNum() {
-    setNum(num.slice(0, -1));
+    setNum(Number(num.toString().slice(0, -1)));
   }
 
-  function operatorHandler(e) {
-    let operatorInput = e.target.value;
+  function operatorHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    const operatorInput = e.currentTarget.value as Operator;
     setOperator(operatorInput);
     setOldNum(num);
     setNum(0);
@@ -39,13 +40,13 @@ function Calculator() {
     setSecondNum(num);
 
     if (operator === '/') {
-      setNum(parseFloat(oldNum) / parseFloat(num));
+      setNum(parseFloat(oldNum.toString()) / parseFloat(num.toString()));
     } else if (operator === '*') {
-      setNum(parseFloat(oldNum) * parseFloat(num));
+      setNum(parseFloat(oldNum.toString()) * parseFloat(num.toString()));
     } else if (operator === '-') {
-      setNum(parseFloat(oldNum) - parseFloat(num));
+      setNum(parseFloat(oldNum.toString()) - parseFloat(num.toString()));
     } else if (operator === '+') {
-      setNum(parseFloat(oldNum) + parseFloat(num));
+      setNum(parseFloat(oldNum.toString()) + parseFloat(num.toString()));
     }
     setShowOperation(true);
   }
