@@ -88,11 +88,10 @@ function Calculator() {
               </p>
             </div>
           )}
+          <button className="ieee" onClick={convert}>
+            IEEE
+          </button>
           <div className="buttons-container">
-            <button className="ieee" onClick={convert}>
-              IEEE754
-            </button>
-
             <button className="button grey" onClick={clear}>
               Ac
             </button>
