@@ -70,6 +70,20 @@ body {
     font-family: 'Inter', Arial, sans-serif;
 }
 
+.ieee {
+    display: block;
+    margin: 35px 255px -16px auto; /* centraliza e dá espaço abaixo */
+    padding: 5px 20px;
+    border-radius: 8px;
+    background: #303136;
+    color: #29A8FF;
+    font-weight: bold;
+    border: none;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
 .button.dark-blue {
     background: #005DB2;
     color: #fff;
