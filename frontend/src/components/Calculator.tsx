@@ -3,67 +3,44 @@ import './Calculator.css';
 import { convertToIEEE754, type ConverterResponse } from '../api';
 
 function Calculator() {
-  const [num, setNum] = useState(0);
-  const [secondNum, setSecondNum] = useState(0);
-  const [oldNum, setOldNum] = useState(0);
-  type Operator = '/' | '*' | '-' | '+' | undefined;
-  const [operator, setOperator] = useState<Operator | undefined>();
   const [ieee, setIeee] = useState<ConverterResponse | null>(null);
+  const [input, setInput] = useState('');
+  const [lastOperation, setLastOperation] = useState('');
 
   function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
-    const input = e.currentTarget.value;
-    if (num === 0) {
-      setNum(Number(input));
-    } else {
-      setNum(Number(num) + Number(input));
-    }
+    const value = e.currentTarget.value;
+    setInput((prev) => prev + value);
   }
 
   function clear() {
-    setNum(0);
+    setInput('');
     setShowOperation(false);
     setIeee(null);
+    setLastOperation('');
   }
 
   function deleteNum() {
-    setNum(Number(num.toString().slice(0, -1)));
-  }
-
-  function operatorHandler(e: React.MouseEvent<HTMLButtonElement>) {
-    const operatorInput = e.currentTarget.value as Operator;
-    setOperator(operatorInput);
-    setOldNum(num);
-    setNum(0);
+    setInput((prev) => prev.slice(0, -1));
   }
 
   function calculate() {
-    setSecondNum(num);
-
-    if (operator === '/') {
-      setNum(parseFloat(oldNum.toString()) / parseFloat(num.toString()));
-    } else if (operator === '*') {
-      setNum(parseFloat(oldNum.toString()) * parseFloat(num.toString()));
-    } else if (operator === '-') {
-      setNum(parseFloat(oldNum.toString()) - parseFloat(num.toString()));
-    } else if (operator === '+') {
-      setNum(parseFloat(oldNum.toString()) + parseFloat(num.toString()));
+    try {
+      setLastOperation(input);
+      const result = eval(input);
+      setInput(result.toString());
+      setShowOperation(true);
+    } catch {
+      setInput('Error');
     }
-    setShowOperation(true);
   }
 
   const [showOperation, setShowOperation] = useState(false);
 
-  function historyOperation() {
-    if (operator) {
-      return `${oldNum} ${operator} ${secondNum}`;
-    }
-    return '';
-  }
-
   const convert = async () => {
-    if (num === null) return;
+    const value = Number(input);
+    if (isNaN(value)) return;
     try {
-      const data = await convertToIEEE754(num);
+      const data = await convertToIEEE754(value);
       setIeee(data);
     } catch (error) {
       console.error('Error converting to IEEE754:', error);
@@ -75,11 +52,9 @@ function Calculator() {
       <div className="background">
         <div className="calculator-shadow"></div>
         <div className="calculator">
-          {showOperation && (
-            <div className="operation">{historyOperation()}</div>
-          )}
+          <div className="operation">{showOperation ? lastOperation : ''}</div>
           <h1 className="input" id="result">
-            {num}
+            {input || '0'}
           </h1>
           {ieee && (
             <div className="ieee-result">
@@ -113,7 +88,7 @@ function Calculator() {
             <button
               className="button dark-blue"
               id="divisor"
-              onClick={operatorHandler}
+              onClick={inputNum}
               value="/"
             >
               /
@@ -121,7 +96,7 @@ function Calculator() {
             <button
               className="button dark-blue"
               id="multiplicador"
-              onClick={operatorHandler}
+              onClick={inputNum}
               value="*"
             >
               *
@@ -135,11 +110,7 @@ function Calculator() {
             <button className="button dark-grey" onClick={inputNum} value="9">
               9
             </button>
-            <button
-              className="button dark-blue"
-              onClick={operatorHandler}
-              value="-"
-            >
+            <button className="button dark-blue" onClick={inputNum} value="-">
               -
             </button>
             <button className="button dark-grey" onClick={inputNum} value="4">
@@ -153,7 +124,7 @@ function Calculator() {
             </button>
             <button
               className="button dark-blue add"
-              onClick={operatorHandler}
+              onClick={inputNum}
               value="+"
             >
               +

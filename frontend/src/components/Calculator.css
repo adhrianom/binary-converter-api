@@ -120,9 +120,12 @@ body {
     font-size: 1.1rem;
     text-align: right;
     margin-bottom: 8px;
+    min-height: 24px;
     margin-top: 8px;
     font-family: 'Inter', Arial, sans-serif;
     letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+    opacity: 1;
 }
 
 .calculator-shadow{
