@@ -6,10 +6,21 @@ function Calculator() {
   const [ieee, setIeee] = useState<ConverterResponse | null>(null);
   const [input, setInput] = useState('');
   const [lastOperation, setLastOperation] = useState('');
+  const [isResult, setIsResult] = useState(false);
 
   function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
     const value = e.currentTarget.value;
-    setInput((prev) => prev + value);
+    if (isResult && !isNaN(Number(value))) {
+      setInput(value);
+      setIsResult(false);
+      setShowOperation(false);
+      setLastOperation('');
+    } else {
+      setInput((prev) => prev + value);
+      setIsResult(false);
+      setShowOperation(false);
+      setLastOperation('');
+    }
   }
 
   function clear() {
@@ -26,11 +37,14 @@ function Calculator() {
   function calculate() {
     try {
       setLastOperation(input);
-      const result = eval(input);
+      const sanitized = input.replace(/\b0+(\d)/g, '$1');
+      const result = eval(sanitized);
       setInput(result.toString());
       setShowOperation(true);
+      setIsResult(true);
     } catch {
       setInput('Error');
+      setIsResult(true);
     }
   }
 
