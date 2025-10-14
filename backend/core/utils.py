@@ -8,8 +8,11 @@ def float_to_binary_iee(num: float) -> dict:
 
     ## ZERO CASE
     if num == 0:
-        print("0 00000000 00000000000000000000000")
-        exit()
+        return {
+            "signal": 0,
+            "exponent": '00000000',
+            "mantissa": '00000000000000000000000'
+        }
 
     binary_int= [] ## LIST TO STORE INTEGER BINARY VALUES
     binary_decimal= [] ## LIST TO STORE DECIMAL BINARY VALUES
