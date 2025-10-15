@@ -157,3 +157,18 @@ body {
 
     padding: 32px 16px 48px 16px;
 }
+
+.operation-animate {
+    animation: fadeInUp 0.4s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

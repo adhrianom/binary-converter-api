@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Calculator.css';
 import { convertToIEEE754, type ConverterResponse } from '../api';
 
 function Calculator() {
   const [ieee, setIeee] = useState<ConverterResponse | null>(null);
   const [input, setInput] = useState('');
+  const [animate, setAnimate] = useState(false);
   const [lastOperation, setLastOperation] = useState('');
   const [isResult, setIsResult] = useState(false);
+
+  useEffect(() => {
+    setAnimate(true);
+    const timer = setTimeout(() => setAnimate(false), 400);
+    return () => clearTimeout(timer);
+  }, [input]);
 
   function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
     const value = e.currentTarget.value;
@@ -66,7 +73,9 @@ function Calculator() {
       <div className="background">
         <div className="calculator-shadow"></div>
         <div className="calculator">
-          <div className="operation">{showOperation ? lastOperation : ''}</div>
+          <div className={`operation${animate ? ' operation-animate' : ''}`}>
+            {showOperation ? lastOperation : ''}
+          </div>
           <h1 className="input" id="result">
             {input || '0'}
           </h1>
