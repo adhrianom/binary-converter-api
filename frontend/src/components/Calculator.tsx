@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Calculator.css';
 import { convertToIEEE754, type ConverterResponse } from '../api';
-import axios from 'axios';
 
 function Calculator() {
   const [ieee, setIeee] = useState<ConverterResponse | null>(null);
@@ -9,9 +8,6 @@ function Calculator() {
   const [animate, setAnimate] = useState(false);
   const [lastOperation, setLastOperation] = useState('');
   const [isResult, setIsResult] = useState(false);
-  const api = axios.create({
-    baseURL: 'https://binary-conversor-api.onrender.com/',
-  });
 
   useEffect(() => {
     setAnimate(true);
