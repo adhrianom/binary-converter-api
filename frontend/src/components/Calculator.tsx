@@ -46,6 +46,8 @@ function Calculator() {
       setLastOperation(input);
       let sanitized = input.replace(/\b0+(\d)/g, '$1');
       sanitized = sanitized.replace(/[\+\-\*\/]+$/, '');
+      sanitized = sanitized.replace(/(\d+)\.$/, '$1.0');
+      sanitized = sanitized.replace(/(^|[+\-*/])\./g, '$10.');
       setLastOperation(sanitized);
       const result = eval(sanitized);
       setInput(result.toString());
