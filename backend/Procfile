@@ -1,0 +1,1 @@
+web: gunicorn binary_conversor.wsgi:application
