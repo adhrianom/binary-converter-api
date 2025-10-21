@@ -44,7 +44,9 @@ function Calculator() {
   function calculate() {
     try {
       setLastOperation(input);
-      const sanitized = input.replace(/\b0+(\d)/g, '$1');
+      let sanitized = input.replace(/\b0+(\d)/g, '$1');
+      sanitized = sanitized.replace(/[\+\-\*\/]+$/, '');
+      setLastOperation(sanitized);
       const result = eval(sanitized);
       setInput(result.toString());
       setShowOperation(true);
