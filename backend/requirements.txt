@@ -1,3 +1,5 @@
-Django>=4.2
-djangorestframework
-gunicorn
+asgiref==3.9.1
+Django==5.2.6
+django-cors-headers==4.9.0
+djangorestframework==3.16.1
+sqlparse==0.5.3
