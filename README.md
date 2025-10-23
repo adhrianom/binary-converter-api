@@ -1,51 +1,66 @@
+
 # Binary Conversor API
 
-API REST para conversão de números decimais em representação binária IEEE 754 (32 bits), utilizando a lógica do repositório [binary_conversor_IEEE](https://github.com/adhrianom/binary_conversor_IEEE).
+REST API and Frontend for converting decimal numbers to IEEE 754 (32-bit) binary representation.
 
-## Estrutura do Projeto
+---
 
-A estrutura do projeto está organizada da seguinte forma:
+## Deploy
+
+- **Frontend (React):** [Vercel](https://vercel.com/)
+- **Backend (Django):** [Render](https://render.com/)
+
+---
+
+## Demo
+
+- **Frontend:** [https://binary-conversor.vercel.app/](https://binary-conversor.vercel.app/)
+- **Backend:** [https://binary-conversor-api.onrender.com/](https://binary-conversor-api.onrender.com/)
+
+---
+
+## Project Structure
 
 ```
 binary_conversor_API/
-├── backend/         # Todo o código do backend (Django)
+├── backend/         # Backend code (Django)
 │   ├── manage.py
 │   ├── binary_conversor/
 │   └── core/
-├── templates/       # (Opcional) Templates globais do projeto
-├── venv/            # Ambiente virtual Python
+├── frontend/        # Frontend code (React + Vite)
+│   ├── src/
+│   ├── public/
+│   └── ...
+├── venv/            # Python virtual environment (do not version)
 ├── README.md
 └── ...
 ```
 
-- **backend/**: Contém toda a implementação do backend em Django, incluindo o arquivo `manage.py`, as configurações do projeto e os apps (`core`, etc).
-- **templates/**: Caso utilize templates compartilhados, mantenha-os aqui.
-- **venv/**: Ambiente virtual Python (não versionar no Git).
-- **README.md**: Este arquivo de documentação.
+---
 
 ## Backend (Django)
 
-O backend é responsável por receber requisições HTTP e realizar a conversão de números decimais para a representação binária IEEE 754.
+### Description
 
-### Principais pontos da implementação:
+The backend receives HTTP requests and converts decimal numbers to IEEE 754 binary representation.
+
+### Main points
 
 - **Framework:** Django
-- **Endpoint principal:**  
+- **Main endpoint:**  
   `POST /core/converter/`  
-  Recebe um JSON com o campo `number` e retorna a representação IEEE 754.
+  Receives a JSON with the field `number` and returns the IEEE 754 representation.
 
-### Exemplo de uso
+### Usage example
 
-#### Requisição
-
+**Request:**
 ```json
 {
   "number": 5.75
 }
 ```
 
-#### Resposta
-
+**Response:**
 ```json
 {
   "number_received": 5.75,
@@ -57,37 +72,96 @@ O backend é responsável por receber requisições HTTP e realizar a conversão
 }
 ```
 
-### Como rodar o backend
+### How to run locally
 
-1. **Clone este repositório:**
+1. **Clone the repository:**
    ```bash
-   git clone <URL-DESTE-REPOSITORIO>
+   git clone <REPOSITORY-URL>
    cd binary_conversor_API
    ```
 
-2. **Crie e ative um ambiente virtual:**
+2. **Create and activate the virtual environment:**
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-3. **Instale as dependências:**
+3. **Install dependencies:**
    ```bash
    pip install -r backend/requirements.txt
    ```
 
-4. **Execute as migrações do Django:**
+4. **Run migrations:**
    ```bash
    cd backend
    python manage.py migrate
    ```
 
-5. **Inicie o servidor:**
+5. **Start the server:**
    ```bash
    python manage.py runserver
    ```
 
-## Frontend
+### Deploy on Render
+
+- Create a new web service on [Render](https://render.com/) pointing to the `backend` directory.
+- Set the build command:  
+  `pip install -r requirements.txt && python manage.py migrate`
+- Set the start command:  
+  `gunicorn binary_conversor.wsgi`
+- Add the required environment variables (e.g., `DJANGO_SECRET_KEY`, `ALLOWED_HOSTS`).
+
+---
+
+## Frontend (React + Vite)
+
+### Description
+
+Web interface for users to input numbers, view the conversion, and interact with the calculator.
+
+### How to run locally
+
+1. **Go to the frontend folder:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+### Deploy on Vercel
+
+- Log in to [Vercel](https://vercel.com/) and import the repository.
+- Choose the `frontend` directory as the project root.
+- Vercel will automatically detect Vite/React projects.
+- Set the environment variable `VITE_API_URL` (if needed) to point to the Render backend.
+
+---
+
+## Notes
+
+- The frontend communicates with the backend via REST API.
+- The backend may take a few seconds to "wake up" on Render (free tier).
+- The Python virtual environment (`venv`) **should not be versioned**.
+
+---
+
+## Reference
+
+- Conversion logic: [binary_conversor_IEEE](https://github.com/adhrianom/binary_conversor_IEEE)
+
+---
+
+## License
+
+This project follows the license of the original repository.
 
 > **Atenção:** O frontend ainda não foi modificado e não faz parte desta documentação.  
 > Quando houver alterações ou implementação do frontend, este README será atualizado com as instruções correspondentes.
