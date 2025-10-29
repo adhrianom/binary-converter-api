@@ -17,17 +17,31 @@ function Calculator() {
 
   function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
     const value = e.currentTarget.value;
+    const operators = ['+', '-', '*', '/'];
+
     if (isResult && !isNaN(Number(value))) {
       setInput(value);
       setIsResult(false);
       setShowOperation(false);
       setLastOperation('');
-    } else {
-      setInput((prev) => prev + value);
+      return;
+    }
+
+    if (
+      operators.includes(value) &&
+      input.length > 0 &&
+      operators.includes(input[input.length - 1])
+    ) {
+      setInput((prev) => prev.slice(0, -1) + value);
       setIsResult(false);
       setShowOperation(false);
       setLastOperation('');
+      return;
     }
+    setInput((prev) => prev + value);
+    setIsResult(false);
+    setShowOperation(false);
+    setLastOperation('');
   }
 
   function clear() {
