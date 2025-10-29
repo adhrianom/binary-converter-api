@@ -1,4 +1,3 @@
-
 # Binary Conversor API
 
 REST API and Frontend for converting decimal numbers to IEEE 754 (32-bit) binary representation.
@@ -157,19 +156,6 @@ Web interface for users to input numbers, view the conversion, and interact with
 
 - Conversion logic: [binary_conversor_IEEE](https://github.com/adhrianom/binary_conversor_IEEE)
 
----
-
 ## License
 
 This project follows the license of the original repository.
-
-> **Atenção:** O frontend ainda não foi modificado e não faz parte desta documentação.  
-> Quando houver alterações ou implementação do frontend, este README será atualizado com as instruções correspondentes.
-
-## Referência
-
-- Lógica de conversão: [binary_conversor_IEEE](https://github.com/adhrianom/binary_conversor_IEEE)
-
-## Licença
-
-Este projeto segue a licença do repositório original.
