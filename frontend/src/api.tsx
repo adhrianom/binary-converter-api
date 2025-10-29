@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://binary-conversor-api.onrender.com',
+  baseURL: 'https://binary-converter-api.onrender.com',
 });
 
 export interface IEEE754Data {
