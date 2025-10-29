@@ -62,17 +62,19 @@ body {
     color: #A5A5A5;
     font-size: 0.9rem;
     text-align: right;
-    margin-bottom: -30px;
+    margin-bottom: 16px;
     background: transparent;
     border-radius: 16px;
     border: none;
     outline: none;
     font-family: 'Inter', Arial, sans-serif;
+    min-height: 20px;
+    transition: opacity 0.2s;
+    opacity: 1;
 }
 
 .ieee {
     display: block;
-    margin: 35px 255px -16px auto; /* centraliza e dá espaço abaixo */
     padding: 5px 20px;
     border-radius: 8px;
     background: #303136;
@@ -82,6 +84,31 @@ body {
     font-size: 0.7rem;
     cursor: pointer;
     font-family: 'Inter', Arial, sans-serif;
+}
+
+.mod {
+    display: block;
+    padding: 5px 20px;
+    border-radius: 8px;
+    background: #303136;
+    color: #29A8FF;
+    font-weight: bold;
+    border: none;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-family: 'Inter', Arial, sans-serif; 
+}
+
+.top-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -16px; /* ajuste conforme desejar */
+}
+
+.ieee, .mod {
+    margin: 0;
 }
 
 .button.dark-blue {

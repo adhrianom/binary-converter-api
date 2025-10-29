@@ -16,8 +16,10 @@ function Calculator() {
   }, [input]);
 
   function inputNum(e: React.MouseEvent<HTMLButtonElement>) {
-    const value = e.currentTarget.value;
-    const operators = ['+', '-', '*', '/'];
+    let value = e.currentTarget.value;
+    const operators = ['+', '-', '*', '/', 'mod'];
+
+    if (value === 'mod') value = 'mod';
 
     if (isResult && !isNaN(Number(value))) {
       setInput(value);
@@ -59,7 +61,8 @@ function Calculator() {
     try {
       setLastOperation(input);
       let sanitized = input.replace(/\b0+(\d)/g, '$1');
-      sanitized = sanitized.replace(/[\+\-\*\/]+$/, '');
+      sanitized = sanitized.replace(/[\+\-\*\/mod]+$/, '');
+      sanitized = sanitized.replace(/mod/g, '%');
       sanitized = sanitized.replace(/(\d+)\.$/, '$1.0');
       sanitized = sanitized.replace(/(^|[+\-*/])\./g, '$10.');
       setLastOperation(sanitized);
@@ -92,22 +95,30 @@ function Calculator() {
         <div className="calculator-shadow"></div>
         <div className="calculator">
           <div className={`operation${animate ? ' operation-animate' : ''}`}>
-            {showOperation ? lastOperation : ''}
+            {showOperation ? lastOperation.replace(/%/g, 'mod') : ''}
           </div>
           <h1 className="input" id="result">
             {input || '0'}
           </h1>
-          {ieee && (
-            <div className="ieee-result">
-              <p>
+
+          <div className="ieee-result">
+            {ieee ? (
+              <span>
                 {ieee.ieee754.signal} {ieee.ieee754.exponent}{' '}
                 {ieee.ieee754.mantissa}
-              </p>
-            </div>
-          )}
-          <button className="ieee" onClick={convert}>
-            IEEE
-          </button>
+              </span>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="top-buttons">
+            <button className="ieee" onClick={convert}>
+              IEEE
+            </button>
+            <button className="mod" onClick={inputNum} value="mod">
+              MOD
+            </button>
+          </div>
           <div className="buttons-container">
             <button className="button grey" onClick={clear}>
               Ac
