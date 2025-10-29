@@ -66,7 +66,17 @@ function Calculator() {
       sanitized = sanitized.replace(/(\d+)\.$/, '$1.0');
       sanitized = sanitized.replace(/(^|[+\-*/])\./g, '$10.');
       setLastOperation(sanitized);
-      const result = eval(sanitized);
+      let result = eval(sanitized);
+
+      const modMatch = sanitized.match(/(-?\d+)\s*%\s*(-?\d+)/);
+      if (modMatch) {
+        const a = Number(modMatch[1]);
+        const b = Number(modMatch[2]);
+        if (a < 0 && b > 0) {
+          result = a + b;
+        }
+      }
+
       setInput(result.toString());
       setShowOperation(true);
       setIsResult(true);
